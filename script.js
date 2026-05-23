@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-
     function showSlides() {
+        const activeContainer = document.querySelector('.lang-section.active') || document.body;
+        const slides = activeContainer.querySelectorAll('.slide');
+        const dots = activeContainer.querySelectorAll('.dot');
+
         if (slides.length === 0) return; 
 
         slides.forEach(slide => slide.classList.remove('active'));

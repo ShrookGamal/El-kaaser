@@ -276,27 +276,36 @@
         </a>
     </div>
     <script>
-        function switchLang(lang) {
-            const body = document.getElementById('main-body');
-            const html = document.getElementById('main-html');
-            const arSection = document.getElementById('ar-version');
-            const enSection = document.getElementById('en-version');
-            if (lang === 'en') {
-                arSection.classList.remove('active');
-                enSection.classList.add('active');
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                body.classList.add('en-version');
-            } else {
-                enSection.classList.remove('active');
-                arSection.classList.add('active');
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                body.classList.remove('en-version');
-            }
+    function switchLang(lang, isFirstLoad = false) {
+        const body = document.getElementById('main-body');
+        const html = document.getElementById('main-html');
+        const arSection = document.getElementById('ar-version');
+        const enSection = document.getElementById('en-version');
+
+        if (lang === 'en') {
+            arSection.classList.remove('active');
+            enSection.classList.add('active');
+            html.setAttribute('lang', 'en');
+            html.setAttribute('dir', 'ltr');
+            body.classList.add('en-version');
+        } else {
+            enSection.classList.remove('active');
+            arSection.classList.add('active');
+            html.setAttribute('lang', 'ar');
+            html.setAttribute('dir', 'rtl');
+            body.classList.remove('en-version');
+        }
+        localStorage.setItem('selectedLang', lang);
+
+        if (!isFirstLoad) {
             window.scrollTo(0, 0);
         }
-    </script>
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('selectedLang') || 'ar';
+        switchLang(savedLang, true);
+    });
+</script>
     <script src="script.js"></script>
 </body>
 </html>
